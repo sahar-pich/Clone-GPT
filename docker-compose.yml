@@ -1,0 +1,26 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: db_chat
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: chat
+    ports:
+      - "3306:3306"
+    volumes:
+      # runs schema.sql once, on first start (empty volume only)
+      - ./Database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: admin_app
+    environment:
+      PMA_HOST: db
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
