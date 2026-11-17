@@ -9,25 +9,15 @@ client = OpenAI()
 system_prompt = 'You have a nice and warm attitude'
 
 
-def chat():
-    memory = [{'role': 'system', 'content': system_prompt}]
+def chat(memory: list[dict]):
 
-    while True:
-        if len(memory) > 1:
-            question = input('\n' + memory[-1]['content'] + '\n')
-        else:
-            question = input()
-        if question == 'quit':
-            return
-        memory.append({'role': 'user', 'content': question})
-        answer = client.chat.completions.create(
+    memory.insert(0, {'role': 'system', 'content': system_prompt})
+
+    answer = client.chat.completions.create(
             model='gpt-4o-mini',
             messages = memory
         )
-        response = answer.choices[0].message.content
-        memory.append({'role': 'assistant', 'content': response})
-        
 
+    response = answer.choices[0].message.content
+    return response
 
-
-chat()

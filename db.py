@@ -1,9 +1,13 @@
-import mysql.connector
 from dotenv import load_dotenv
 import os
+import mysql.connector
+from chat import chat
+
 
 load_dotenv()
+
 db_password = os.getenv('MYSQL_ROOT_PASSWORD')
+
 def get_connection():
     return mysql.connector.connect(
         host='localhost',
@@ -24,7 +28,7 @@ def get_conversation(conversation_id):
     ''', (conversation_id, ))
     convo = cursor.fetchall() 
     conn.close()
-    return  convo
+    return convo
 
 def create_conversation(title):
     conn = get_connection()
