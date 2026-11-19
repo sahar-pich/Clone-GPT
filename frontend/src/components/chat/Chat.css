@@ -1,0 +1,21 @@
+#newchat-div {
+    margin: 30vh;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#chnewchatat-input {
+    border-radius: 10px;
+    width: 30rem;
+    height: 2rem;
+    padding-left: 1rem;
+    margin: 5px;
+}
+
+
+
+#conversation-div {
+    border: 1px solid black;
+
+}
