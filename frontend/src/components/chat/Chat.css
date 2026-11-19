@@ -1,21 +1,28 @@
 #newchat-div {
     margin: 30vh;
-    text-align: center;
     padding: 5px;
+    text-align: center;
     border-radius: 10px;
+    border: 1px solid black;
+
 }
 
-#chnewchatat-input {
-    border-radius: 10px;
+#newchat-input {
     width: 30rem;
     height: 2rem;
-    padding-left: 1rem;
     margin: 5px;
+    padding-left: 1rem;
+    border-radius: 10px;
+
 }
 
 
 
 #conversation-div {
+    width: 60vw;
+    height: 30vh;
+    margin: 30vh auto;
+    text-align: center;
     border: 1px solid black;
 
 }

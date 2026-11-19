@@ -28,7 +28,7 @@ def get():
     return {'msg': 'hi'}
 
 
-@app.post('/conversations')
+@app.post('/new_conversation')
 def new_conversations(title: str= 'New chat'):
     return {'id': create_conversation(title)}
 
