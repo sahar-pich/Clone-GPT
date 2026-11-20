@@ -7,12 +7,18 @@ interface NewConversation {
     id: number
 }
 
+interface Conversation {
+    role: "assistant" | "user",
+    content: string
+}
+
 
 function Chat() {
     const [isNewChat, setIsNewChat] = useState(true)
     const [userPrompt, setUserPrompt] = useState('')
-    const [aiResponse, setAIResponse] = useState('')
+    // const [aiResponse, setAIResponse] = useState('')
     const [chatId, setChatId] = useState<number | null>(null)
+    const [conversations, setConversation] = useState<Conversation[]>([])
 
     const chat = async () => {
         try {
@@ -38,9 +44,9 @@ function Chat() {
                     }
                 )
             })
-            const data = await response.json()
-            console.log(data)
-            setAIResponse(data)
+            const aiResponse = await response.json()
+            setConversation([...conversations, { role: "user", content: userPrompt }, { role: "assistant", content: aiResponse }])
+            setUserPrompt('')
             setIsNewChat(false)
 
         }
@@ -62,20 +68,33 @@ function Chat() {
 
                         <div id="newchat-div">
                             <h1 id="newchat-greeting">What should we chat about today?</h1>
-                            <input id="newchat-input" type="text" onChange={(event) => setUserPrompt(event.target.value)} value={userPrompt} />
-                            <button onClick={() => chat()}><img src={sendIcon} /></button>
+                            <div>
+                                <input id="newchat-input" type="text" onChange={(event) => setUserPrompt(event.target.value)} value={userPrompt} />
+                                <button onClick={() => chat()}><img src={sendIcon} className="send-icon" /></button>
+                            </div>
                         </div>
 
                         :
                         <div id="conversation-div">
-                            <input id="newchat-input" type="text" onChange={(event) => setUserPrompt(event.target.value)} value={userPrompt} />
-                            <button onClick={() => chat()}><img src={sendIcon} /></button>
-                            <p>{aiResponse}</p>
+                            <div id="chat-div">{
+                                conversations.map((c, i) => {
+                                    return (
+                                        <div key={i} className={c.role === "user" ? "user_message_div" : "assistant_message_div"}>
+                                            <p className={c.role === "user" ? "user_message" : "assistant_message"}>{c.content}</p>
+                                        </div>
+                                    )
+                                })
+                            }
+                            </div>
+                            <div>
+                                <input id="newchat-input" type="text" onChange={(event) => setUserPrompt(event.target.value)} value={userPrompt} />
+                                <button onClick={() => chat()}><img src={sendIcon} className="send-icon" /></button>
+                            </div>
                         </div>
 
                 }
 
-            </main>
+            </main >
         </>
     )
 }

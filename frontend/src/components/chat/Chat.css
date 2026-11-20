@@ -3,7 +3,7 @@
     padding: 5px;
     text-align: center;
     border-radius: 10px;
-    border: 1px solid black;
+    border: 1px solid lightgray;
 
 }
 
@@ -16,13 +16,34 @@
 
 }
 
-
-
 #conversation-div {
     width: 60vw;
     height: 30vh;
     margin: 30vh auto;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid lightgray;
+
+}
+
+.user_message_div {
+    width: 30%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: end;
+    text-align: left;
+}
+
+.user_message {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: lightgray;
+}
+
+.assistant_message_div {
+    width: 30%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: start;
+    text-align: left;
 
 }
