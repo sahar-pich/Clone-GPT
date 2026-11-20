@@ -2,9 +2,6 @@
     margin: 30vh;
     padding: 5px;
     text-align: center;
-    border-radius: 10px;
-    border: 1px solid lightgray;
-
 }
 
 #newchat-input {
@@ -13,13 +10,12 @@
     margin: 5px;
     padding-left: 1rem;
     border-radius: 10px;
-
 }
 
 #conversation-div {
     width: 60vw;
-    height: 30vh;
-    margin: 30vh auto;
+    height: 100vh;
+    margin: 3vh auto;
     text-align: center;
     border: 1px solid lightgray;
 

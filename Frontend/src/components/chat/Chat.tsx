@@ -1,7 +1,7 @@
 import { useState } from 'react'
-
 import './Chat.css'
 import sendIcon from '../../assets/send.svg'
+import { Link } from 'react-router-dom'
 
 interface NewConversation {
     id: number
@@ -16,7 +16,6 @@ interface Conversation {
 function Chat() {
     const [isNewChat, setIsNewChat] = useState(true)
     const [userPrompt, setUserPrompt] = useState('')
-    // const [aiResponse, setAIResponse] = useState('')
     const [chatId, setChatId] = useState<number | null>(null)
     const [conversations, setConversation] = useState<Conversation[]>([])
 
@@ -55,11 +54,19 @@ function Chat() {
         }
     }
 
+    // Returns to New Chat
+    const newChat = () => {
+        setIsNewChat(true)
+        setConversation([])
+        setChatId(null)
+        setUserPrompt('')
+    }
+
 
     return (
         <>
-
-            {/* <button onClick={() => setIsNewChat(!isNewChat)}>{isNewChat ? 'True' : 'False'}</button> */}
+            <Link to="/about"><button>About</button></Link>
+            {!isNewChat && <button onClick={() => newChat()}>NewChat</button>}
 
             <main>
 
