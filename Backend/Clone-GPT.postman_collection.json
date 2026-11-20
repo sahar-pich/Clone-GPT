@@ -1,0 +1,94 @@
+{
+  "info": {
+    "name": "Clone-GPT",
+    "description": "FastAPI backend for Clone-GPT. Run 'New conversation' first. It saves the new id into {{conversationId}} for the other requests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:8000" },
+    { "key": "conversationId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": ["{{baseUrl}}"],
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "New conversation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('returns an id', () => {",
+              "    const data = pm.response.json();",
+              "    pm.expect(data.id).to.be.a('number');",
+              "    pm.collectionVariables.set('conversationId', data.id);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/new_conversation?title=New chat",
+          "host": ["{{baseUrl}}"],
+          "path": ["new_conversation"],
+          "query": [{ "key": "title", "value": "New chat" }]
+        }
+      }
+    },
+    {
+      "name": "Send message",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"Hi! My name is Sahar. Tell me a one-liner programming joke.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/conversations/{{conversationId}}/messages",
+          "host": ["{{baseUrl}}"],
+          "path": ["conversations", "{{conversationId}}", "messages"]
+        }
+      }
+    },
+    {
+      "name": "Send follow-up (checks memory)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"What's my name?\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/conversations/{{conversationId}}/messages",
+          "host": ["{{baseUrl}}"],
+          "path": ["conversations", "{{conversationId}}", "messages"]
+        }
+      }
+    },
+    {
+      "name": "Get conversation",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/conversations/{{conversationId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["conversations", "{{conversationId}}"]
+        }
+      }
+    }
+  ]
+}
