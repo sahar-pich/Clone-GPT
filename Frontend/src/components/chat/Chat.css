@@ -1,45 +1,150 @@
-#newchat-div {
-    margin: 30vh;
-    padding: 5px;
-    text-align: center;
-}
-
-#newchat-input {
-    width: 30rem;
-    height: 2rem;
-    margin: 5px;
-    padding-left: 1rem;
-    border-radius: 10px;
-}
-
+/* ---------- Cards (shared) ---------- */
+#newchat-div,
 #conversation-div {
-    width: 60vw;
-    height: 100vh;
-    margin: 3vh auto;
-    text-align: center;
-    border: 1px solid lightgray;
+    width: 100%;
+    max-width: 800px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+}
 
+/* ---------- New chat screen ---------- */
+#newchat-div {
+    text-align: center;
+}
+
+#newchat-greeting {
+    font-weight: 500;
+    margin: 0 0 1.5rem;
+}
+
+/* ---------- Conversation screen ---------- */
+#conversation-div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-div {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+/* ---------- New chat button ---------- */
+.newchat-btn {
+    align-self: flex-start;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--bubble);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.newchat-btn:hover {
+    background: var(--border);
+}
+
+/* ---------- Input bar (pill) ---------- */
+.input-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.4rem 0.4rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.input-bar:focus-within {
+    border-color: var(--muted);
+}
+
+/* ---------- Text input ---------- */
+#newchat-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    color: var(--text);
+    padding: 0.5rem 0;
+}
+
+#newchat-input::placeholder {
+    color: var(--muted);
+}
+
+/* ---------- Send button ---------- */
+.send-btn {
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: grid;
+    place-items: center;
+    border: none;
+    border-radius: 50%;
+    background: var(--text);
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    opacity: 0.85;
+}
+
+.send-icon {
+    width: 1rem;
+    filter: invert(1);
+}
+
+/* ---------- Message bubbles ---------- */
+.user_message_div,
+.assistant_message_div {
+    display: flex;
+    margin-bottom: 1rem;
 }
 
 .user_message_div {
-    width: 30%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+}
+
+.assistant_message_div {
+    justify-content: flex-start;
+}
+
+.user_message,
+.assistant_message {
+    margin: 0;
+    line-height: 1.6;
+    white-space: pre-wrap;
     text-align: left;
 }
 
 .user_message {
-    padding: 1rem;
-    border-radius: 10px;
-    background-color: lightgray;
+    max-width: 70%;
+    padding: 0.6rem 1rem;
+    border-radius: 18px;
+    background: var(--bubble);
 }
 
-.assistant_message_div {
-    width: 30%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: start;
-    text-align: left;
+.assistant_message {
+    max-width: 100%;
+    padding: 0.6rem 0;
+}
+/* ---------- Loading state ---------- */
+.thinking {
+    margin: 0;
+    color: var(--muted);
+    font-style: italic;
+}
 
+.send-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }

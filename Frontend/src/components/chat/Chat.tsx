@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import './Chat.css'
 import sendIcon from '../../assets/send.svg'
-import { Link } from 'react-router-dom'
 
 interface NewConversation {
     id: number
@@ -18,8 +17,13 @@ function Chat() {
     const [userPrompt, setUserPrompt] = useState('')
     const [chatId, setChatId] = useState<number | null>(null)
     const [conversations, setConversation] = useState<Conversation[]>([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const chat = async () => {
+        // Ignores empty prompts and clicks while waiting for a reply
+        if (isLoading || !userPrompt.trim()) return
+
+        setIsLoading(true)
         try {
             let chatNumber = chatId
             // Creates new chat
@@ -52,6 +56,9 @@ function Chat() {
         catch (err) {
             console.log(err)
         }
+        finally {
+            setIsLoading(false)
+        }
     }
 
     // Returns to New Chat
@@ -65,8 +72,6 @@ function Chat() {
 
     return (
         <>
-            <Link to="/about"><button>About</button></Link>
-            {!isNewChat && <button onClick={() => newChat()}>NewChat</button>}
 
             <main>
 
@@ -75,14 +80,20 @@ function Chat() {
 
                         <div id="newchat-div">
                             <h1 id="newchat-greeting">What should we chat about today?</h1>
-                            <div>
-                                <input id="newchat-input" type="text" onChange={(event) => setUserPrompt(event.target.value)} value={userPrompt} />
-                                <button onClick={() => chat()}><img src={sendIcon} className="send-icon" /></button>
+                            <div className="input-bar">
+                                <input
+                                    id="newchat-input" type="text" placeholder="Ask anything" autoComplete="off"
+                                    onChange={(event) => setUserPrompt(event.target.value)} value={userPrompt}
+                                    onKeyDown={(event) => { if (event.key === "Enter") chat() }}
+                                    disabled={isLoading}
+                                />
+                                <button onClick={() => chat()} className="send-btn" disabled={isLoading}><img src={sendIcon} className="send-icon" /></button>
                             </div>
                         </div>
 
                         :
                         <div id="conversation-div">
+                            <button onClick={() => newChat()} className="newchat-btn">New chat</button>
                             <div id="chat-div">{
                                 conversations.map((c, i) => {
                                     return (
@@ -92,10 +103,16 @@ function Chat() {
                                     )
                                 })
                             }
+                                {isLoading && <p className="thinking">Thinking...</p>}
                             </div>
-                            <div>
-                                <input id="newchat-input" type="text" onChange={(event) => setUserPrompt(event.target.value)} value={userPrompt} />
-                                <button onClick={() => chat()}><img src={sendIcon} className="send-icon" /></button>
+                            <div className="input-bar">
+                                <input
+                                    id="newchat-input" type="text" placeholder="Ask anything" autoComplete="off"
+                                    onChange={(event) => setUserPrompt(event.target.value)} value={userPrompt}
+                                    onKeyDown={(event) => { if (event.key === "Enter") chat() }}
+                                    disabled={isLoading}
+                                />
+                                <button onClick={() => chat()} className="send-btn" disabled={isLoading}><img src={sendIcon} className="send-icon" /></button>
                             </div>
                         </div>
 

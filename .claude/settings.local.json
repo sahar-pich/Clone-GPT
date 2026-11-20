@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Skill(learning-coach)",
-      "Skill(claude-api)",
-      "PowerShell(claude config *)"
-    ]
-  }
-}

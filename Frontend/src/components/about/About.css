@@ -1,0 +1,48 @@
+/* ---------- About card ---------- */
+#about-card {
+    width: 100%;
+    max-width: 600px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    line-height: 1.6;
+}
+
+#about-card h1 {
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+}
+
+#about-card p {
+    margin: 0 0 1rem;
+    color: var(--muted);
+}
+
+/* ---------- Links ---------- */
+.about-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.about-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: var(--bubble);
+    color: var(--text);
+    text-decoration: none;
+}
+
+.about-link:hover {
+    background: var(--border);
+}
+
+.about-link img {
+    width: 1rem;
+}
